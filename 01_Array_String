@@ -1,1 +1,21 @@
+Link: " https://leetcode.com/problems/merge-sorted-array/?envType=study-plan-v2&envId=top-interview-150 "
 
+class Solution:
+    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+
+#轉換成 "index"，因為從後挑選放置於新的list
+        p1 = m - 1
+        p2 = n - 1
+        p3 = m + n - 1
+
+#要將 num 放入新的 nums
+#從 nums2 開始放
+        while p2 >= 0:  #往前推進直到=0為止
+#再從 nums1 開始放
+            if p1 >= 0 and nums1[p1] > nums2[p2]:  #往前推進直到=0為止 並且 從 nums1 的視角下去走
+                nums1[p3] = nums1[p1]              #將目標num 放入 nums
+                p1 -= 1                            #p1往前走(往左邊走)
+            else: 
+                nums1[p3] = nums2[p2]
+                p2 -= 1
+            p3 -= 1                                #最後不要忘了p3也要一起跟p2與p1往作走(同時的!)
