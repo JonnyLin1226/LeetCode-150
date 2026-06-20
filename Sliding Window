@@ -1,1 +1,23 @@
+link: " https://leetcode.com/problems/longest-substring-without-repeating-characters/?envType=problem-list-v2&envId=plakya4j "
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        
+        seen = {}           #備忘錄(紀錄本)
+        right = 0           #車頭
+        left = 0            #車尾
+        max_length = 0      #紀錄車頭車尾最大值
+
+#火車移動(迴圈開始)
+        for right in range(len(s)):
+#發現重複的警報，用 if 條件篩選: (1)是否看過 (2)是否有紀錄在備忘錄裡  
+#seen[s[right]] >= left : 判斷重複的真偽，如果這個「過去的位置」小於 left，代表什麼？代表那個重複的字元早就被你拋在車尾之後了！它對現在的車廂沒有威脅；只有當 seen[s[right]] >= left 時，才代表這個重複字元真的在你的車廂裡作亂     
+            if s[right] in seen and seen[s[right]] >= left:
+#確認真的有重複後，你必須立刻把車尾 (left) 移動到一個安全的位置。我們就等於把那個重複的舊字元「踢出車外」。
+                left = seen[s[right]] + 1
+#更新紀錄本，覆蓋掉原本德紀錄        
+            seen[s[right]] = right
+#更新最大長度
+            max_length = max(max_length, right - left + 1)
+        return max_length
 
